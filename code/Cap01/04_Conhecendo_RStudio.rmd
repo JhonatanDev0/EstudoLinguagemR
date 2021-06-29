@@ -1,0 +1,58 @@
+# Instalando e carregando pacotes
+
+Use o comando abaixo para carregar pacotes manualmente
+```{R}
+library(datasets)  # Datasets de exemplo
+```
+
+# Dados
+
+## Vamos carregar e preparar os dados
+
+Para começar vamos abrir a documentação do dataset "iris"
+```{R}
+?iris
+```
+
+Agora vamos colocar os dados de flores iris num objeto chamado df
+```{r}
+df <- iris
+```
+
+Visualizando as primeiras linhas do dataset:
+```{r}
+head(df)
+```
+
+# Análise de dados
+
+A primeira análise que podemos fazer é calcular o histograma de largura da cepa
+```{r}
+hist(df$Sepal.Width, 
+  main = "Histograma da largura da Cepa",
+  xlab = "Largura da cepa (em cm)")
+```
+
+# Limpezas
+
+Limpando o ambiente
+```{r}
+rm(list = ls()) 
+```
+
+Limpando pacotes
+```{r}
+detach("package:datasets", unload = TRUE)
+```
+
+Limpando gráficos: utilizado apenas se houver gráficos para serem apagados
+```{R}
+dev.off()
+```
+
+Limpando o console
+```{R}
+cat("\014")
+```
+
+Limpeza terminada ;)

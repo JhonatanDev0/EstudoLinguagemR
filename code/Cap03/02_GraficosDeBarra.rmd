@@ -1,0 +1,126 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+```
+
+### Carregando dados
+
+```{r}
+?diamonds  # Informações sobre o dataset
+head(diamonds)   # Dando uma olhada no comecinho do dataset
+```
+
+### Gráficos de barras de frequência
+
+```{r}
+plot(diamonds$cut)
+``` 
+
+```{r}
+diamonds %>%
+  select(color) %>%
+  plot()
+```
+
+```{r}
+diamonds %>%
+  select(clarity) %>%
+  barplot()
+```
+
+```{r}
+?table
+```
+
+```{r}
+diamonds %>%
+  select(clarity) %>%
+  table() %>%  # agora o dado é formatado corrretamente
+  barplot()
+```
+
+```{r}
+diamonds %>%
+  select(clarity) %>%
+  table() %>%
+  sort(decreasing = T) %>%  # ordenação
+  barplot()
+```
+
+```{r}
+diamonds %>%
+  select(clarity) %>%
+  table() %>%
+  barplot(
+    main   = "Clareza de Diamantes",
+    sub    = "(Fonte: ggplot2::diamonds)",
+    horiz  = T,  # Horizontalizando nossas barras
+    ylab   = "Clareza de Diamantes",  # invertendo os nomes dos eixos
+    xlab   = "Frequência",
+    xlim   = c(0, 15000),  # Limites para o eixo X
+    border = NA,
+    col    = "#CD0000"  # vermelho
+  )
+```
+
+### Tarefa de estudo
+
+Quando usamos plot e passamos mais do que uma variável as barras ficam
+empilhadas, use barplot, table, legend, rownames e a argumento beside para
+colocar as barras lado a lado.
+
+Abaixo tem a resposta de como fazer isso, mas eu sugiro que você tente alcançar
+o objetivo do gráfico 03_02_barras_multiplas_variaveis.png na pasta "resultados"
+com ajuda das documentações, os passos estão delineados abaixo.
+
+Passo 1: Criar uma tabela de contigência
+Passo 2: Crie uma legenda par identificar as cores de diamantes
+Passo 3: Colocando uma barra do lado da outra
+
+#### Colocando gráficos lado a lado
+
+##### Barras empilhadas
+
+```{r}
+diamonds %>%
+  select(color, clarity) %>%
+  plot()
+```
+
+##### Passo 1: criar uma tabela de contigência
+
+```{r}
+df <- diamonds %>%
+  select(color, clarity) %>%
+  table() %>%
+  print()  # Show table in Console
+```
+
+##### Passo 2: Legenda
+
+```{r}
+df %>%
+  barplot(legend = rownames(.))  # a legenda é as linhas da variável cor
+```
+
+##### Passo 3: Colocando uma barra do lado da outra
+
+```{r}
+df %>%
+  barplot(
+    legend = rownames(.),
+    beside = T  # T = Coloca uma barra do lado da outra
+  )
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls())
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

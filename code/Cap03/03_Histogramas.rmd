@@ -1,0 +1,38 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+```
+
+### Histogramas
+
+```{r}
+?hist
+```
+
+```{r}
+hist(diamonds$price)
+```
+
+```{r}
+hist(diamonds$price,
+  breaks = 7,  # Sugerindo a quantidade de quebras
+  main   = "Histograma do preço de Diamantes",
+  sub    = "(Fonte: ggplot2::diamonds)",
+  ylab   = "Frequência",
+  xlab   = "Preço de Diamantes",
+  border = NA,  # Sem bordas na barra
+  col    = "#CD0000"  # vermelho
+  )
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls()) 
+p_unload(all)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

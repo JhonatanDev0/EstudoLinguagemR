@@ -1,0 +1,67 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+```
+
+### Gráficos Box Plots
+
+```{r}
+?boxplot  # Documentação da função
+```
+
+#### Box plot com a definição padrão
+
+```{r}
+boxplot(diamonds$price)
+```
+
+## Como ler um box plot:
+
+                   _____________________
+          |_______|          |          |__________|        ..
+          |       |__________|__________|          |
+                 25%        50%        75%
+        min      q1         M          q3         max    outliers
+
+
+#### Box plot personalizado
+
+```{r}
+diamonds %>%
+  select(price) %>%
+  boxplot(
+    horizontal = T,  # Horizontal
+    notch  = T,      # Intervalo de confiança para a mediana
+    main   = "Boxplot do preço de Diamantes",
+    sub    = "(Fonte: ggplot2::diamonds)",
+    xlab   = "Preço de Diamantes",
+    col    = "#CD0000"  # vermelho
+  )
+```
+
+### Box plots por grupos
+
+#### Box plots por grupo usando a função boxplot()
+
+```{r}
+diamonds %>%
+  select(color, price) %>%
+  boxplot(
+    price ~ color,  # Til indica uma fórmula
+    data  = . ,
+    ylab = "preço",
+    xlab = "cor"
+  )
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls())
+p_unload(all)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

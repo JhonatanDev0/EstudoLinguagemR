@@ -1,0 +1,29 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+library(datasets)
+?iris
+```
+
+### Calculando as médias
+
+```{r}
+iris %>%
+  mutate(Mean.Width = (Sepal.Width + Petal.Width)/2,
+         Mean.Length = (Sepal.Length + Petal.Length)/2) %>%
+  select(Sepal.Length, Petal.Length, Mean.Length) %>%
+  head()
+```
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉
+

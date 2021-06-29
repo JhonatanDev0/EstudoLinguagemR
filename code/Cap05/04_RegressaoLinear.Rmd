@@ -1,0 +1,65 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+df <- import("dados/StateData.xlsx") %>%
+  as_tibble() %>%
+  select(instagram:modernDance) %>% 
+  print()
+```
+
+### Scatterplot de algumas variáveis
+
+```{r}
+df %>%
+  select(museum, volunteering) %>%
+  plot()
+```
+
+# Desenhando a curva da regressão
+
+```{r}
+lm(df$volunteering ~ df$museum) %>% abline()
+```
+
+### Salvando a regressão regression
+
+```{r}
+fit <- lm(df$volunteering ~ df$museum)
+```
+
+### Olhando o modelo
+
+```{r}
+fit
+```
+
+### Sumário da regressão
+
+```{r}
+summary(fit)
+```
+
+### Intervalo de confiança
+
+```{r}
+confint(fit)
+```
+
+### Predizendo valores de "volunteering"
+
+```{r}
+predict(fit)
+```
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+p_unload(all)
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

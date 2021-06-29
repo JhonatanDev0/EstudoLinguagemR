@@ -1,0 +1,64 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+library(datasets)
+```
+
+## Séries temporais
+```{r}
+?uspop
+```
+
+```{r}
+uspop
+```
+
+```{r}
+?ts
+```
+
+## Graficando
+```{r}
+uspop %>% 
+  plot(
+    main = "População EUA 1790–1970 ",
+    sub  = "(Fonte: datasets::uspop)",
+    xlab = "Ano",
+    ylab = "População (em milhões)",
+  )
+```
+
+## Linhas de referência
+```{r}
+abline(v = 1930, col = "lightgray")
+text(1930, 10, "1930", col = "red3") 
+abline(v = 1940, col = "lightgray")
+text(1940, 2, "1940", col = "red3") 
+```
+
+### Multiplas séries temporais
+
+#### Bolsa de Valores Européia
+
+Gráficos empilhados
+```{r}
+plot(EuStockMarkets)
+```
+
+Mesmo gráfico
+```{r}
+ts.plot(EuStockMarkets)
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls()) 
+p_unload(all)
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

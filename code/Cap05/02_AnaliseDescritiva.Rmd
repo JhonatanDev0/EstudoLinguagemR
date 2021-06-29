@@ -1,0 +1,51 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+df <- import("dados/StateData.xlsx") %>%
+  as_tibble() %>%
+  select(state_code, 
+    psychRegions,
+    instagram:modernDance) %>% 
+  mutate(psychRegions = as.factor(psychRegions)) %>%
+  print()
+```
+
+### Sumário 
+
+```{r}
+df %>% summary()
+```
+
+```{r}
+df %>%
+  select(entrepreneur) %>%
+  summary()
+```
+
+### Quartis
+
+```{r}
+# mínimo, quartil 1, mediana, quartil 3 e máximo
+fivenum(df$entrepreneur)
+```
+
+````{r}
+boxplot(df$entrepreneur, notch = T, horizontal = T)
+```
+
+```{r}
+boxplot.stats(df$entrepreneur)
+```
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+p_unload(all)
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

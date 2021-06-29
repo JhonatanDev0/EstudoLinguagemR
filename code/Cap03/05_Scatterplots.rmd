@@ -1,0 +1,93 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+```
+
+### Carregando os dados
+
+```{r}
+df <- import("dados/StateData.xlsx") %>%
+  as_tibble() %>%
+  select(state_code, 
+    psychRegions,
+    instagram:modernDance) %>% 
+  mutate(psychRegions = as.factor(psychRegions)) %>%
+  print()
+```
+
+### Scatter plots
+
+```{r}
+df %>%
+  select(instagram:modernDance) %>% 
+  plot()  # Plot todas as associações
+```
+
+### Scatterplots com duas variáveis com mais detalhes
+```{r}
+df %>%
+  select(scrapbook:modernDance) %>% 
+  plot(
+    main = "Scatterplot de buscas no Google por estado nos EUA",
+    xlab = "Buscas por \"scrapbook\"",
+    ylab = "Buscas por \"modern dance\"",
+    col  = "gray",
+    pch  = 20,
+  )
+```
+
+```{r}
+?pch
+```
+
+### Linha de regressão linear
+```{r}
+df %>%
+  lm(modernDance ~ scrapbook, data = .) %>%
+  abline()
+```
+
+## Removendo o outlier
+
+### Identificando o outlier
+```{r}
+df %>%
+  select(state_code, scrapbook) %>%
+  filter(scrapbook > 4) %>%  # selecionando outlier
+  print()
+```
+
+### Refazendo o scatterplot
+```{r}
+df %>%
+  select(scrapbook:modernDance) %>% 
+  filter(scrapbook < 4) %>%  # removendo outlier
+  plot(
+    main = "Scatterplot de buscas no Google por estado nos EUA",
+    xlab = "Buscas por \"scrapbook\"",
+    ylab = "Buscas por \"modern dance\"",
+    col  = "gray",
+    pch  = 20,
+  )
+```
+
+### Refazendo a linha de tendência
+
+```{r}
+df %>%
+  filter(scrapbook < 4) %>%  # removendo outlier
+  lm(modernDance ~ scrapbook, data = .) %>%
+  abline()
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls()) 
+p_unload(all)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

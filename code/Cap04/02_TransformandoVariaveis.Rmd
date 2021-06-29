@@ -1,0 +1,31 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, tidyverse)
+library(datasets)
+?iris
+head(iris)
+```
+
+### Traduzindo Species
+
+```{r}
+iris %>%
+  mutate(Species.trad = recode(Species, 
+      "setosa" = 1,
+      "virginica" = 2,
+      .default = 3)) %>%
+  select(Species, Species.trad)
+```
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉
+

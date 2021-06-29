@@ -1,0 +1,34 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+library(datasets)
+df <- import("dados/StateData.xlsx") %>%
+  as_tibble() %>%
+  select(state_code, region, psychRegions) %>% 
+  mutate(psychRegions = as.factor(psychRegions)) %>%
+  print()
+```
+
+### Sumário
+
+```{r}
+summary(df)
+```
+
+### Sumário usando table()
+
+```{r}
+table(df$region)
+```
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉

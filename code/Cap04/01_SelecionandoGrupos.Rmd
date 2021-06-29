@@ -1,0 +1,81 @@
+## Carregando pacotes e datasets
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+library(datasets)
+?iris
+```
+
+## Filtrando por uma variável
+
+### Filtro "maior que"
+
+```{r}
+iris %>%
+  filter(Sepal.Width > 3.7) %>%
+  print()
+```
+
+### Igualdade
+
+```{r}
+iris %>%
+  filter(Species == "virginica") %>%
+  print()
+```
+
+## Filtrando por múltiplas variáveis
+
+### Filtro "e"
+
+Encontrando as flores virginica e com pétalas mais largas do que 3.7
+```{r}
+iris %>%
+  filter(Species == "virginica" &
+             Sepal.Width > 3.7) %>%
+  print()
+```
+
+### Filtro "ou"
+
+```{r}
+iris %>%
+  filter(Sepal.Length == 5.5 |
+             Sepal.Width > 4) %>%
+  print()
+```
+
+### Negação
+
+```{r}
+iris %>%
+  filter(Sepal.Length == 5.5 &
+             !Species == "setosa") %>%
+  print()
+```
+
+
+## Guia de filtros e símbolos
+
+|      filtro    | símbolo |
+|:--------------:|:-------:|
+|    maior que   |    >    |
+|    menor que   |    <    |
+| maior ou igual |    >=   |
+| menor ou igual |    <=   |
+|   igualdade    |    ==   |
+|       "e"      |    &    |
+|      "ou"      |    \|   |
+|     negação    |    !    |
+
+## Limpeza
+
+```{r}
+rm(list = ls())
+detach("package:datasets", unload = TRUE)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉
+

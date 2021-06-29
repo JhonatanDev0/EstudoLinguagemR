@@ -1,0 +1,57 @@
+### Carregando pacotes
+
+```{r}
+pacman::p_load(pacman, rio, tidyverse)
+```
+
+### Carregando dados
+```{r}
+df <- import("dados/StateData.xlsx") %>%
+  as_tibble() %>%
+  select(state_code, 
+    psychRegions,
+    instagram:modernDance) %>% 
+  mutate(psychRegions = as.factor(psychRegions)) %>%
+  rename(y = psychRegions) %>%
+  print()
+```
+
+### Calculando clusters
+```{r}
+hc <- df %>%
+  dist() %>%
+  hclust()
+```
+
+### Visualizando dendrogram
+```{r}
+hc %>% plot(labels = df$state_code)
+```
+
+### Desenhando grupos
+
+2 grupos
+```{r}
+hc %>% rect.hclust(k = 2, border = "gray80")
+```
+
+3 grupos
+```{r}
+hc %>% rect.hclust(k = 3, border = "gray60")  # 3 grupos
+```
+
+4 grupos
+```{r}
+hc %>% rect.hclust(k = 4, border = "gray40")  # 4 grupos
+```
+
+### Limpeza
+
+```{r}
+rm(list = ls()) 
+p_unload(all)
+dev.off()
+cat("\014")
+```
+
+Limpeza feita 😉
